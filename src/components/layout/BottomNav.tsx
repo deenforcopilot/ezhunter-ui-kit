@@ -1,16 +1,60 @@
-import { Home, Briefcase, Search, MessageCircle, User } from "lucide-react";
+import { Home, Briefcase, Search, MessageCircle, User, LayoutDashboard, Building2, Users } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { cn } from "@/lib/utils";
+import { useRole } from "@/contexts/RoleContext";
 
-const navItems = [
-  { to: "/", icon: Home, label: "Home" },
-  { to: "/jobs", icon: Briefcase, label: "Jobboard" },
-  { to: "/search", icon: Search, label: "Search" },
-  { to: "/chat", icon: MessageCircle, label: "Chat", badge: 4 },
-  { to: "/profile", icon: User, label: "Profile" },
-];
+interface NavItem {
+  to: string;
+  icon: any;
+  label: string;
+  badge?: number;
+}
+
+const getNavItems = (role: string): NavItem[] => {
+  const baseItems: NavItem[] = [
+    { to: "/", icon: Home, label: "หน้าหลัก" },
+  ];
+
+  switch (role) {
+    case "client":
+      return [
+        ...baseItems,
+        { to: "/client/dashboard", icon: LayoutDashboard, label: "แดชบอร์ด" },
+        { to: "/client/jobs", icon: Briefcase, label: "งานของฉัน" },
+        { to: "/chat", icon: MessageCircle, label: "แชท", badge: 4 },
+        { to: "/profile", icon: User, label: "โปรไฟล์" },
+      ];
+    case "recruiter":
+      return [
+        ...baseItems,
+        { to: "/recruiter/marketplace", icon: Briefcase, label: "มาร์เก็ตเพลส" },
+        { to: "/recruiter/dashboard", icon: LayoutDashboard, label: "แดชบอร์ด" },
+        { to: "/chat", icon: MessageCircle, label: "แชท", badge: 4 },
+        { to: "/profile", icon: User, label: "โปรไฟล์" },
+      ];
+    case "admin":
+      return [
+        ...baseItems,
+        { to: "/admin/dashboard", icon: LayoutDashboard, label: "แดชบอร์ด" },
+        { to: "/admin/recruiters", icon: Users, label: "รีครูทเตอร์" },
+        { to: "/admin/clients", icon: Building2, label: "ลูกค้า" },
+        { to: "/profile", icon: User, label: "โปรไฟล์" },
+      ];
+    default:
+      return [
+        ...baseItems,
+        { to: "/jobs", icon: Briefcase, label: "หางาน" },
+        { to: "/search", icon: Search, label: "ค้นหา" },
+        { to: "/chat", icon: MessageCircle, label: "แชท", badge: 4 },
+        { to: "/profile", icon: User, label: "โปรไฟล์" },
+      ];
+  }
+};
 
 export function BottomNav() {
+  const { role } = useRole();
+  const navItems = getNavItems(role);
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border shadow-nav">
       <div className="max-w-md mx-auto flex items-center justify-around h-nav px-2 pb-safe">

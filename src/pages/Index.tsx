@@ -7,9 +7,20 @@ import { PromoBanner } from "@/components/home/PromoBanner";
 import { JobCategories } from "@/components/home/JobCategories";
 import { PopularJobs } from "@/components/home/PopularJobs";
 import { useNavigate } from "react-router-dom";
+import { useRole } from "@/contexts/RoleContext";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { role, user } = useRole();
+
+  const getGreeting = () => {
+    switch (role) {
+      case "client": return "ค้นหาผู้สมัครที่เหมาะสม";
+      case "recruiter": return "รับงานสรรหาเพิ่มรายได้";
+      case "admin": return "จัดการระบบทั้งหมด";
+      default: return "ค้นหางานที่ใช่สำหรับคุณ";
+    }
+  };
 
   return (
     <AppLayout>
@@ -19,8 +30,8 @@ const Index = () => {
           <div className="px-4 py-3">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h1 className="text-lg font-bold text-foreground">Search</h1>
-                <p className="text-sm text-muted-foreground">Find any service you need</p>
+                <h1 className="text-lg font-bold text-foreground">สวัสดี, {user.name.split(' ')[0]}</h1>
+                <p className="text-sm text-muted-foreground">{getGreeting()}</p>
               </div>
               <button 
                 onClick={() => navigate("/notifications")}
@@ -37,7 +48,7 @@ const Index = () => {
         {/* Content */}
         <div className="px-4 py-4 space-y-6">
           <CategoryChips />
-          <PointsBanner points={32.25} value={32.25} />
+          <PointsBanner points={user.points} value={user.points} />
           <PromoBanner />
           <JobCategories />
           <PopularJobs />
