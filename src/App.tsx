@@ -24,6 +24,9 @@ import RecruiterMarketplace from "./pages/recruiter/RecruiterMarketplace";
 import SubmitCandidate from "./pages/recruiter/SubmitCandidate";
 import CandidateTracker from "./pages/recruiter/CandidateTracker";
 import Earnings from "./pages/recruiter/Earnings";
+import MyJobs from "./pages/recruiter/MyJobs";
+import JobSubmission from "./pages/recruiter/JobSubmission";
+import JobSearch from "./pages/recruiter/JobSearch";
 // Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageRecruiters from "./pages/admin/ManageRecruiters";
@@ -32,6 +35,8 @@ import ManageClients from "./pages/admin/ManageClients";
 import ApplicantProfile from "./pages/applicant/ApplicantProfile";
 import MyApplications from "./pages/applicant/MyApplications";
 import OnlineTests from "./pages/applicant/OnlineTests";
+import SkillPractice from "./pages/applicant/SkillPractice";
+import AISkillAnalysis from "./pages/applicant/AISkillAnalysis";
 // Interview pages
 import ScheduleInterview from "./pages/interview/ScheduleInterview";
 import VideoInterview from "./pages/interview/VideoInterview";
@@ -72,6 +77,10 @@ const App = () => (
             <Route path="/recruiter/submit/:jobId" element={<SubmitCandidate />} />
             <Route path="/recruiter/candidates" element={<CandidateTracker />} />
             <Route path="/recruiter/earnings" element={<Earnings />} />
+            <Route path="/recruiter/my-jobs" element={<MyJobs />} />
+            <Route path="/recruiter/my-jobs/:jobId" element={<JobSubmission />} />
+            <Route path="/recruiter/job-search" element={<JobSearch />} />
+            <Route path="/recruiter/job-search/:jobId" element={<JobSearch />} />
             <Route path="/recruiter/job/:id" element={<RecruiterMarketplace />} />
             <Route path="/recruiter/job/:id/candidates" element={<CandidateTracker />} />
             
@@ -85,6 +94,8 @@ const App = () => (
             <Route path="/applicant/applications" element={<MyApplications />} />
             <Route path="/applicant/tests" element={<OnlineTests />} />
             <Route path="/applicant/test/:id" element={<OnlineTests />} />
+            <Route path="/applicant/skill-practice" element={<SkillPractice />} />
+            <Route path="/applicant/ai-skill-analysis" element={<AISkillAnalysis />} />
             
             {/* Interview routes */}
             <Route path="/interview/schedule" element={<ScheduleInterview />} />
